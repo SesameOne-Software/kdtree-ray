@@ -1,4 +1,7 @@
-use std::collections::HashMap;
+use alloc::vec;
+use alloc::vec::Vec;
+
+use hashbrown::HashMap;
 
 use crate::aabb::*;
 use crate::candidate::{Candidates, Side};
@@ -62,9 +65,9 @@ pub fn build_tree(
     let (left_candidates, right_candidates) = classify(candidates, best_index, nb_shapes);
 
     // Add left child
-    let (left, right) = rayon::join(
-        || build_tree(config, &l_space, left_candidates, n_l),
-        || build_tree(config, &r_space, right_candidates, n_r),
+    let (left, right) = (
+        build_tree(config, &l_space, left_candidates, n_l),
+        build_tree(config, &r_space, right_candidates, n_r),
     );
 
     let (depth_left, mut tree_left) = left;

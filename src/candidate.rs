@@ -1,6 +1,10 @@
+use core::cmp::Ordering;
+
+use alloc::vec;
+use alloc::vec::Vec;
+
 use crate::plane::{Dimension, Plane};
 use crate::AABB;
-use std::cmp::Ordering;
 
 pub type Candidates = Vec<Candidate>;
 

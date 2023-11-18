@@ -1,4 +1,5 @@
-use rayon::ThreadPoolBuilder;
+use alloc::vec;
+use alloc::vec::Vec;
 
 use crate::aabb::*;
 use crate::candidate::*;
@@ -39,8 +40,7 @@ impl KDTree {
         let nb_shapes = shapes.len();
 
         // Build the tree
-        let pool = ThreadPoolBuilder::new().build().unwrap();
-        let (depth, tree) = pool.install(|| build_tree(config, &space, candidates, nb_shapes));
+        let (depth, tree) = build_tree(config, &space, candidates, nb_shapes);
 
         KDTree { space, tree, depth }
     }

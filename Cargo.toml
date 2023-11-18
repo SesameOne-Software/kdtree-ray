@@ -12,6 +12,6 @@ keywords = ["kdtree", "raytracer", "3D", "sah"]
 exclude = [".github/"]
 
 [dependencies]
-cgmath = "0.18.0"
+nalgebra = "0.32.3"
 enum-map = "2.7.0"
-rayon = "1.8.0"
+hashbrown = "0.14.2"

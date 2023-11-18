@@ -1,4 +1,5 @@
 #![deny(missing_docs)]
+#![no_std]
 
 //! This crate is a fast implementation of [KD-tree](https://en.wikipedia.org/wiki/K-d_tree)
 //! for raytracer (or other rendering method using ray).
@@ -64,12 +65,14 @@ mod kdtree;
 mod plane;
 mod ray;
 
+extern crate alloc;
+
 pub use aabb::*;
 pub use config::BuilderConfig;
 pub use kdtree::KDTree;
 
-type Point3 = cgmath::Vector3<f32>;
-type Vector3 = cgmath::Vector3<f32>;
+type Point3 = nalgebra::Vector3<f32>;
+type Vector3 = nalgebra::Vector3<f32>;
 
 #[macro_use]
 extern crate enum_map;
