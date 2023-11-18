@@ -12,6 +12,6 @@ keywords = ["kdtree", "raytracer", "3D", "sah"]
 exclude = [".github/"]
 
 [dependencies]
-nalgebra = "0.32.3"
+nalgebra = { version = "*", default-features = false, features = ["libm", "libm-force", "alloc"] }
 enum-map = "2.7.0"
 hashbrown = "0.14.2"
