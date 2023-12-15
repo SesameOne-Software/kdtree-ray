@@ -6,6 +6,7 @@ use hashbrown::HashMap;
 use crate::aabb::*;
 use crate::candidate::{Candidates, Side};
 use crate::config::BuilderConfig;
+use crate::hasher::SimpleBuildHasher;
 use crate::plane::{Dimension, Plane};
 
 #[derive(Clone, Debug)]
@@ -175,7 +176,7 @@ fn classify(
     best_index: usize,
     nb_shapes: usize,
 ) -> (Candidates, Candidates) {
-    let mut sides = HashMap::with_capacity(nb_shapes);
+    let mut sides = HashMap::with_capacity_and_hasher(nb_shapes, SimpleBuildHasher::default());
     // Step 1: Udate sides to classify items
     classify_items(&candidates, best_index, &mut sides);
 
@@ -186,7 +187,11 @@ fn classify(
 /// Step 1 of classify.
 /// Given a candidate list and a splitting candidate identify wich items are part of the
 /// left, right and both subspaces.
-fn classify_items(candidates: &Candidates, best_index: usize, sides: &mut HashMap<usize, Side>) {
+fn classify_items(
+    candidates: &Candidates,
+    best_index: usize,
+    sides: &mut HashMap<usize, Side, SimpleBuildHasher>,
+) {
     let best_dimension = candidates[best_index].dimension();
     (0..(best_index + 1)).for_each(|i| {
         if candidates[i].dimension() == best_dimension {
@@ -207,7 +212,7 @@ fn classify_items(candidates: &Candidates, best_index: usize, sides: &mut HashMa
 // Step 2: Splicing candidates left and right subspace given items sides
 fn splicing_candidates(
     mut candidates: Candidates,
-    sides: &HashMap<usize, Side>,
+    sides: &HashMap<usize, Side, SimpleBuildHasher>,
 ) -> (Candidates, Candidates) {
     let mut left_candidates = Candidates::with_capacity(candidates.len() / 2);
     let mut right_candidates = Candidates::with_capacity(candidates.len() / 2);

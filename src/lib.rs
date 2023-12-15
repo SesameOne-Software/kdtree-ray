@@ -60,6 +60,7 @@
 mod aabb;
 mod candidate;
 mod config;
+mod hasher;
 mod kdnode;
 mod kdtree;
 mod plane;
