@@ -21,4 +21,4 @@ build-std-features = ["build-std-features=panic_immediate_abort"]
 [dependencies]
 nalgebra = { version = "*", default-features = false, features = ["libm", "libm-force", "alloc"] }
 enum-map = "2.7.0"
-hashbrown = "0.14.2"
+hashbrown = "0.14.3"
